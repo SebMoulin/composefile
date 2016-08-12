@@ -1,0 +1,33 @@
+postgresql:
+  image: sameersbn/postgresql:9.4
+  volumes:
+   - /opt/postgresql/data:/var/lib/postgresql
+  environment:
+    - DB_USER=gitlab
+    - DB_PASS=secretpassword
+    - DB_NAME=gitlabhq_production
+gitlab:
+  image: sameersbn/gitlab:7.8.1
+  volumes:
+   - /opt/gitlab/data:/home/git/data
+  mem_limit: 1000000000
+  environment:
+   - GITLAB_HOST=<host_ip>
+   - GITLAB_PORT=10080
+   
+   - SMTP_ENABLED=true
+   - SMTP_DOMAIN=www.allegisgroup.com
+   - SMTP_HOST=ismtp.allegisgroup.com
+   - SMTP_PORT=25
+   - SMTP_OPENSSL_VERIFY_MODE=none
+   
+  links:
+   - redis:redisio
+   - postgresql:postgresql
+  ports:
+   - "10080:80"
+   - "10022:22"
+   - "10443:443"
+
+redis:
+  image: sameersbn/redis:latest
