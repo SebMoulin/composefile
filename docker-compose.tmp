@@ -12,7 +12,7 @@ gitlab:
    - /opt/gitlab/data:/home/git/data
   mem_limit: 1000000000
   environment:
-   - GITLAB_HOST=<host_ip>
+   - GITLAB_HOST=tekadmserv.cloudapp.net
    - GITLAB_PORT=10080
    
    - SMTP_ENABLED=true
